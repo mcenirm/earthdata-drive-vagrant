@@ -18,3 +18,8 @@
           - openssl-devel
           - sqlite-devel
         state: present
+
+    - name: Checkout earthdata-drive
+      git:
+        repo: file:///vagrant/earthdata-drive/.git
+        dest: /tmp/checkout
