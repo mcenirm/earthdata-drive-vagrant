@@ -20,7 +20,9 @@
           - sqlite-devel
         state: present
 
+- hosts: all
+  tasks:
     - name: Checkout earthdata-drive
       git:
         repo: file:///vagrant/earthdata-drive/.git
-        dest: /tmp/checkout
+        dest: /home/vagrant/earthdata-drive
