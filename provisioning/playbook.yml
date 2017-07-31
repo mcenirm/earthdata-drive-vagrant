@@ -1,4 +1,15 @@
 ---
 - hosts: all
   tasks:
-    - meta: noop
+
+    - name: Enable software collection for httpd24
+      yum:
+        name:
+          - centos-release-scl-rh
+        state: present
+
+    - name: Install build tooling for Earthdata Drive modules
+      yum:
+        name:
+          - httpd24-httpd-devel
+        state: present
