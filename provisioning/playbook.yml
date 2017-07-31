@@ -14,4 +14,7 @@
       yum:
         name:
           - httpd24-httpd-devel
+          - httpd24-mod_ssl
+          - openssl-devel
+          - sqlite-devel
         state: present
