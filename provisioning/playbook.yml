@@ -13,6 +13,7 @@
     - name: Install build tooling for Earthdata Drive modules
       yum:
         name:
+          - git
           - httpd24-httpd-devel
           - httpd24-mod_ssl
           - openssl-devel
