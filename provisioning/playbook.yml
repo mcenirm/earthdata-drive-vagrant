@@ -30,11 +30,6 @@
           - sqlite-devel
         state: present
 
-    - name: "Enable web services"
-      service:
-        name: "httpd24-httpd"
-        enabled: "yes"
-        state: "started"
 
     - name: "Prepare web apps folder"
       file:
@@ -71,3 +66,14 @@
       command: "scl enable python27 -- bash -c '. {{ drive_app_venv }}/bin/activate && pip install python_memcached'"
       args:
         creates: "{{ drive_app_venv }}/lib/python2.7/site-packages/memcache.py"
+
+- hosts: all
+  become: yes
+  become_user: root
+  tasks:
+
+    - name: "Enable web services"
+      service:
+        name: "httpd24-httpd"
+        enabled: "yes"
+        state: "started"
