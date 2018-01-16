@@ -1,3 +1,4 @@
 /.vagrant/
 /provisioning/playbook.retry
 /earthdata-drive/
+/override_vars.yml

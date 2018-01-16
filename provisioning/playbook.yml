@@ -37,6 +37,16 @@
       with_items:
         - "99-drive.conf"
 
+    - name: "Prepare web server folders"
+      file:
+        path: "{{ item }}"
+        state: "directory"
+        mode: "0775"
+        group: "apache"
+        owner: "apache"
+      with_items:
+        - "{{ urs_session_store_path }}"
+
     - name: "Prepare web apps folder"
       file:
         path: "{{ drive_site_apps_folder }}"
@@ -77,6 +87,9 @@
   become: yes
   become_user: root
   tasks:
+
+    - name: "Test web server configuration"
+      command: "scl enable httpd24 -- httpd -S"
 
     - name: "Enable web services"
       service:

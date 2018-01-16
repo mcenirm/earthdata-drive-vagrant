@@ -1,0 +1,12 @@
+---
+
+# Required
+urs_app_name: "fakedaacdrive"
+urs_auth_code: "ZmFrZWRhYWNkcml2ZTp4eHh4eHh4eHh4eHg="
+urs_client_id: "XXXXXXXXXXXXXXXXXXXXXX"
+
+# Likely overrides
+#drive_site_name: "localhost"
+#urs_application_group: "our_drive_group"
+#urs_auth_server: "https://localhost:8800/fakeurs"
+#urs_redirect_url: "https://{{ drive_site_name }}/urs-redirect"

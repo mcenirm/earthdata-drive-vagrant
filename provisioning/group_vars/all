@@ -9,3 +9,20 @@ drive_site_apps_folder: "{{ drive_site_folder }}/apps"
 drive_app_name: "drive"
 drive_app_folder: "{{ drive_site_apps_folder }}/{{ drive_app_name }}"
 drive_app_venv: "{{ drive_app_folder }}.venv"
+drive_app_alias: "/{{ drive_app_name }}"
+drive_app_script: "{{ drive_app_folder }}/podaac_drive.wsgi"
+
+urs_auth_server: "https://uat.urs.earthdata.nasa.gov"
+urs_auth_path: "/oauth/authorize"
+urs_token_path: "/oauth/token"
+
+urs_session_store_path: "/var/lib/urs/session"
+urs_web_dav_database_location: "/var/lib/urs/db/{{ drive_app_name }}.db"
+
+urs_redirect_url: "https://{{ drive_site_name }}/urs-redirect"
+
+urs_public_file_root: "/data"
+urs_repo_dir: "/mnt/data"
+
+urs_application_group: "none"
+urs_auth_group: "drive"
