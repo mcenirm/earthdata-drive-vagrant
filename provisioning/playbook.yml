@@ -30,6 +30,12 @@
           - sqlite-devel
         state: present
 
+    - name: "Deploy httpd configuration files (templates)"
+      template:
+        src: "/vagrant/httpdconf/{{ item }}.template"
+        dest: "/opt/rh/httpd24/root/etc/httpd/conf.d/{{ item }}"
+      with_items:
+        - "99-drive.conf"
 
     - name: "Prepare web apps folder"
       file:
