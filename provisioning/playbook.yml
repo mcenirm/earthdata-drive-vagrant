@@ -18,7 +18,7 @@
           - "apr-util-sqlite"
           - "python27-mod_wsgi"
           - "python27-python-virtualenv"
-          - "/vagrant/httpd24-mod_auth_urs-password-1.4.1_1_g4cdc300-1.el7.centos.x86_64.rpm"
+          - "/vagrant/httpd24-mod_auth_urs-password-{{ mod_auth_urs_password_version }}-{{ mod_auth_urs_password_release }}.el7.centos.x86_64.rpm"
         state: "present"
 
     - name: Install build tooling for Earthdata Drive modules
@@ -38,7 +38,7 @@
 
     - name: "Prepare web apps folder"
       file:
-        path: "/web/testdrive.internal/apps"
+        path: "{{ drive_site_apps_folder }}"
         state: "directory"
         mode: "0775"
         group: "vagrant"
@@ -50,24 +50,24 @@
       git:
         repo: file:///vagrant/earthdata-drive/.git
         dest: /home/vagrant/earthdata-drive
-        version: "v1.4.1_1_g4cdc300"
+        version: "v{{ mod_auth_urs_password_version }}"
     - name: "Deploy files for drive app"
       synchronize:
         src: "/home/vagrant/earthdata-drive/password_module/drive_files/"
-        dest: "/web/testdrive.internal/apps/drive/"
+        dest: "{{ drive_app_folder }}/"
     - name: "Prepare virtualenv for drive app"
-      command: "scl enable python27 -- virtualenv /web/testdrive.internal/apps/drive.venv"
+      command: "scl enable python27 -- virtualenv {{ drive_app_venv }}"
       args:
-        creates: "/web/testdrive.internal/apps/drive.venv/bin/activate"
+        creates: "{{ drive_app_venv }}/bin/activate"
     - name: "Install requirements in virtualenv for drive app"
-      command: "scl enable python27 -- bash -c '. /web/testdrive.internal/apps/drive.venv/bin/activate && pip install -r /home/vagrant/earthdata-drive/password_module/requirements.txt'"
+      command: "scl enable python27 -- bash -c '. {{ drive_app_venv }}/bin/activate && pip install -r /home/vagrant/earthdata-drive/password_module/requirements.txt'"
       args:
-        creates: "/web/testdrive.internal/apps/drive.venv/lib/python2.7/site-packages/flask/__init__.py"
+        creates: "{{ drive_app_venv }}/lib/python2.7/site-packages/flask/__init__.py"
     - name: "Install 'requests' in virtualenv for drive app"
-      command: "scl enable python27 -- bash -c '. /web/testdrive.internal/apps/drive.venv/bin/activate && pip install requests'"
+      command: "scl enable python27 -- bash -c '. {{ drive_app_venv }}/bin/activate && pip install requests'"
       args:
-        creates: "/web/testdrive.internal/apps/drive.venv/lib/python2.7/site-packages/requests/__init__.py"
+        creates: "{{ drive_app_venv }}/lib/python2.7/site-packages/requests/__init__.py"
     - name: "Install 'python_memcached' in virtualenv for drive app"
-      command: "scl enable python27 -- bash -c '. /web/testdrive.internal/apps/drive.venv/bin/activate && pip install python_memcached'"
+      command: "scl enable python27 -- bash -c '. {{ drive_app_venv }}/bin/activate && pip install python_memcached'"
       args:
-        creates: "/web/testdrive.internal/apps/drive.venv/lib/python2.7/site-packages/memcache.py"
+        creates: "{{ drive_app_venv }}/lib/python2.7/site-packages/memcache.py"

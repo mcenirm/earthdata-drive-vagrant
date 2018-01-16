@@ -1,0 +1,11 @@
+---
+mod_auth_urs_password_version: "1.4.1_1_g4cdc300"
+mod_auth_urs_password_release: "1"
+
+drive_site_name: "testdrive.internal"
+drive_site_folder: "/web/{{ drive_site_name }}"
+drive_site_apps_folder: "{{ drive_site_folder }}/apps"
+
+drive_app_name: "drive"
+drive_app_folder: "{{ drive_site_apps_folder }}/{{ drive_app_name }}"
+drive_app_venv: "{{ drive_app_folder }}.venv"
