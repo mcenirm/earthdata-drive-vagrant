@@ -74,3 +74,11 @@ Alias {{ drive_app_alias }}/static {{ drive_app_folder }}/static
     AuthType None
     Require all granted
 </Directory>
+
+DBDriver sqlite3
+DBDParams {{ urs_web_dav_database_location }}
+DBDPrepareSQL "SELECT pwd, update_time FROM user_index WHERE username = %s LIMIT 1" get_basicauth_pw
+DBDPrepareSQL "INSERT OR IGNORE INTO user_index VALUES (%s, null, null)" create_user_record
+DBDPrepareSQL "UPDATE user_index SET pwd=%s, update_time=%s WHERE username LIKE %s" update_user_record
+DBDPrepareSQL "DELETE FROM user_index WHERE username=%s" delete_webdav_username
+DBDPrepareSQL "UPDATE user_index SET update_time=%s WHERE username=%s" update_username_timestamp

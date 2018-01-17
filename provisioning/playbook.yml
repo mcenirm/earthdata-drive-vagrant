@@ -46,6 +46,24 @@
         owner: "apache"
       with_items:
         - "{{ urs_session_store_path }}"
+        - "{{ urs_web_dav_database_folder }}"
+
+    - name: "Prepare database file"
+      block:
+        - name: "Ensure database file exists"
+          file:
+            path: "{{ urs_web_dav_database_location }}"
+            state: "touch"
+            owner: "apache"
+            group: "apache"
+            mode: "0600"
+        - name: "Check size of database file"
+          stat:
+            path: "{{ urs_web_dav_database_location }}"
+          register: "database_file_stat"
+        - name: "See database file if it is empty"
+          shell: "sqlite3 /vagrant/earthdata-drive/db .dump | sqlite3 {{ urs_web_dav_database_location }}"
+          when: "database_file_stat.stat.size == 0"
 
     - name: "Prepare web apps folder"
       file:

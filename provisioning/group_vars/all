@@ -17,7 +17,8 @@ urs_auth_path: "/oauth/authorize"
 urs_token_path: "/oauth/token"
 
 urs_session_store_path: "/var/lib/urs/session"
-urs_web_dav_database_location: "/var/lib/urs/db/{{ drive_app_name }}.db"
+urs_web_dav_database_folder: "/var/lib/urs/db"
+urs_web_dav_database_location: "{{ urs_web_dav_database_folder }}/{{ drive_app_name }}.db"
 
 urs_redirect_url: "https://{{ drive_site_name }}/urs-redirect"
 
