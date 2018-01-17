@@ -6,6 +6,8 @@ drive_site_name: "testdrive.internal"
 drive_site_folder: "/web/{{ drive_site_name }}"
 drive_site_apps_folder: "{{ drive_site_folder }}/apps"
 
+drive_files_src: "/vagrant/earthdata-drive/password_module/drive_files"
+
 drive_app_name: "drive"
 drive_app_folder: "{{ drive_site_apps_folder }}/{{ drive_app_name }}"
 drive_app_venv: "{{ drive_app_folder }}.venv"

@@ -21,14 +21,6 @@
           - "/vagrant/httpd24-mod_auth_urs-password-{{ mod_auth_urs_password_version }}-{{ mod_auth_urs_password_release }}.el7.centos.x86_64.rpm"
         state: "present"
 
-    - name: Install build tooling for Earthdata Drive modules
-      yum:
-        name:
-          - git
-          - httpd24-httpd-devel
-          - openssl-devel
-          - sqlite-devel
-        state: present
 
     - name: "Deploy httpd configuration files (templates)"
       template:
@@ -75,15 +67,15 @@
 
 - hosts: all
   tasks:
-    - name: Checkout earthdata-drive
-      git:
-        repo: file:///vagrant/earthdata-drive/.git
-        dest: /home/vagrant/earthdata-drive
-        version: "v{{ mod_auth_urs_password_version }}"
     - name: "Deploy files for drive app"
       synchronize:
-        src: "/home/vagrant/earthdata-drive/password_module/drive_files/"
+        src: "{{ drive_files_src }}/"
         dest: "{{ drive_app_folder }}/"
+        delete: "yes"
+        rsync_opts:
+          - "--exclude=.git"
+          - "--exclude=.DS_Store"
+          - "--delete-excluded"
     - name: "Prepare virtualenv for drive app"
       command: "scl enable python27 -- virtualenv {{ drive_app_venv }}"
       args:
