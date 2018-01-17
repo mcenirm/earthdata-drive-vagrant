@@ -57,6 +57,18 @@
           shell: "sqlite3 /vagrant/earthdata-drive/db .dump | sqlite3 {{ urs_web_dav_database_location }}"
           when: "database_file_stat.stat.size == 0"
 
+    - name: "Deploy mock web site"
+      synchronize:
+        src: "{{ mock_web_src }}/"
+        dest: "{{ mock_web_dest }}/"
+        delete: "yes"
+        group: "no"
+        owner: "no"
+        rsync_opts:
+          - "--exclude=.git*"
+          - "--exclude=.DS_Store"
+          - "--delete-excluded"
+
     - name: "Prepare web apps folder"
       file:
         path: "{{ drive_site_apps_folder }}"

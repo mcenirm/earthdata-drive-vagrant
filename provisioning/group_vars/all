@@ -8,6 +8,9 @@ drive_site_apps_folder: "{{ drive_site_folder }}/apps"
 
 drive_files_src: "/vagrant/earthdata-drive/password_module/drive_files"
 
+mock_web_src: "/vagrant/mock_web"
+mock_web_dest: "/opt/rh/httpd24/root/var/www/html"
+
 drive_app_name: "drive"
 drive_app_folder: "{{ drive_site_apps_folder }}/{{ drive_app_name }}"
 drive_app_venv: "{{ drive_app_folder }}.venv"
